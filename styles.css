@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+/*TOP SECTION STYLING*/
+
+body {
+  font-family: 'Open Sans', sans-serif;  
+}
+
+.input-section {
+  background-color: #E5F3F2;
+}
+
+h1 {
+  color: #00A79D;
+  font-family: 'Roboto Slab', serif;
+}
+
+span {
+  color: #6D6E71;
+}
+
+.save-button {
+  background-color: #00A79D;
+  color: white;
+  border: 0;
+}
+
+.save-button:hover {
+  background-color: #045E55;
+}
+
+/*BOTTOM SECTION STYLING*/
+
+h3 {
+  font-family: 'Roboto Slab', serif;
+  color: #6D6E71;
+}
+
+.quality-text {
+  color: 
+}
