@@ -1,19 +1,21 @@
 $('.save-button').on('click', createIdea);
 $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
-$('.delete-button').on('click', removeIdea);
+$('.idea-card-section').on('click', removeIdea);
 $('.upvote-button').on('click', upvoteIdea);
 $('.downvote-button').on('click', downvoteIdea);
 
 function createIdea(e) {
   e.preventDefault();
-  $('.idea-section').prepend(`<h3>${$('.idea-title').val()}</h3>
+  $('.search-input').after(`<article class="idea-section">
+                              <h3>${$('.idea-title').val()}</h3>
                               <button class='delete-button'></button>
                               <p>${$('.idea-body').val()}</p>
                               <button class="upvote-button"></button>
                               <button class="downvote-button"></button>
                               <p>quality: swill</p>
-                              <hr>`);
+                              <hr>
+                              </article>`);
   clearInputs();
   enableSubmit();
 }
@@ -33,8 +35,9 @@ function enableSubmit() {
 }
 
 function removeIdea(e) {
-  if (e.target.tagName.toLowerCase() === '.delete-button') {
+  if (e.target.className === 'delete-button') {
     $(e.target).parent().remove();
+    console.log(event.target.parent);
   }
 }
 
