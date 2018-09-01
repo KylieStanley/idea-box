@@ -2,22 +2,24 @@ $('.save-button').on('click', createIdea);
 $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
-$('.upvote-button').on('click', upvoteIdea);
-$('.downvote-button').on('click', downvoteIdea);
 
 function createIdea(e) {
+  var title = $('.idea-title').val();
+  var body = $('.idea-body').val();
+  var newIdea = new Idea(title, body);
+
   e.preventDefault();
   $('.search-input').after(`<article class="idea-section">
-                              <h3>${$('.idea-title').val()}</h3>
+                              <h3>${newIdea.title}</h3>
                               <button class='delete-button'></button>
-                              <p>${$('.idea-body').val()}</p>
+                              <p>${newIdea.body}</p>
                               <button class="upvote-button"></button>
                               <button class="downvote-button"></button>
-                              <p>quality: swill</p>
+                              <p class="quality">quality: swill</p>
                               <hr>
                               </article>`);
-  clearInputs();
-  enableSubmit();
+   clearInputs();
+   enableSubmit();
 }
 
 function clearInputs() {
@@ -37,18 +39,28 @@ function enableSubmit() {
 function removeIdea(e) {
   if (e.target.className === 'delete-button') {
     $(e.target).parent().remove();
-    console.log(event.target.parent);
   }
 }
 
-function upvoteIdea(e) {
-  if (e.target.tagName.toLowerCase() === '.upvote-button') {
-    $(e.target).parent().akl;sdfja;lskdjfal;skdfjadls;
-  }
-}
+// function upvoteIdea(e) {
+//   if (e.target.className === '.upvote-button') {
+//     $(e.target).parent().akl;sdfja;lskdjfal;skdfjadls;
+//   }
+// }
 
-function downvoteIdea(e) {
-  if (e.target.tagName.toLowerCase() === '.downvote-button') {
-    $(e.target).parent().akls;sdkf;alsfkja;lsdkfj
-  }
-}
+// function downvoteIdea(e) {
+//   if (e.target.className() === '.downvote-button') {
+//     $(e.target).parent().akls;sdkf;alsfkja;lsdkfj
+//   }
+// }
+
+function Idea (title, body) {
+  this.title = title;
+  this.body = body;
+  this.quality = 'swill';
+  this.qualityCount = 0;
+  this.uniqueId = Date.now();
+};
+
+// function newIdea = new Idea {}
+
