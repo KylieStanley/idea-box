@@ -1,17 +1,17 @@
 $('.save-button').on('click', createIdea);
 $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
-$('.delete-button').on('click', deleteIdea);
+$('.delete-button').on('click', removeIdea);
 $('.upvote-button').on('click', upvoteIdea);
 $('.downvote-button').on('click', downvoteIdea);
 
 function createIdea(e) {
   e.preventDefault();
   $('.idea-section').prepend(`<h3>${$('.idea-title').val()}</h3>
-                              <img src="" class='delete-button' >
+                              <button class='delete-button'></button>
                               <p>${$('.idea-body').val()}</p>
-                              <img src="" class="upvote-button" >
-                              <img src="" class="downvote-button" >
+                              <button class="upvote-button"></button>
+                              <button class="downvote-button"></button>
                               <p>quality: swill</p>
                               <hr>`);
   clearInputs();
@@ -25,6 +25,11 @@ function clearInputs() {
 
 function enableSubmit() {
   var isDisabled = $('.idea-title').val() === '' || $('.idea-body').val() === '';
+  if (isDisabled) {
+    $('.save-button').prop('disabled', true);
+  } else {
+    $('.save-button').prop('disabled', false);
+  }
 }
 
 function removeIdea(e) {

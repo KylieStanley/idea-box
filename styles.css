@@ -60,6 +60,10 @@ input {
   background-color: #045E55;
 }
 
+button:disabled {
+  opacity: .4;
+  }
+
 /*BOTTOM SECTION STYLING*/
 .idea-card-section {
   display: flex;
