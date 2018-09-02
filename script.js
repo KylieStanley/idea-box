@@ -3,6 +3,7 @@ $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
 
+
 function createIdea(e) {
   var title = $('.idea-title').val();
   var body = $('.idea-body').val();
@@ -20,7 +21,18 @@ function createIdea(e) {
                               </article>`);
    clearInputs();
    enableSubmit();
+   storeIdea(newIdea);
 }
+
+function storeIdea(newIdea) {
+ var stringifiedIdea = JSON.stringify(newIdea);
+  localStorage.setItem(newIdea.uniqueId, stringifiedIdea);
+}
+
+function getIdea() {
+  // var parsedIdea = JSON.parse(newIdea)
+}
+
 
 function clearInputs() {
   $('.idea-title').val('');
@@ -62,5 +74,4 @@ function Idea (title, body) {
   this.uniqueId = Date.now();
 };
 
-// function newIdea = new Idea {}
 
