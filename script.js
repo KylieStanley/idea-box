@@ -3,24 +3,52 @@ $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
 
+
+var ideasArray = new Array();
+
+$(document).ready(getIdea);
+
+
+
 function createIdea(e) {
   var title = $('.idea-title').val();
   var body = $('.idea-body').val();
   var newIdea = new Idea(title, body);
 
   e.preventDefault();
+
+  createHTML(newIdea.title, newIdea.body, newIdea.quality);
+  clearInputs();
+  enableSubmit();
+  storeIdea(newIdea);
+}
+
+function storeIdea(newIdea) {
+ var stringifiedIdea = JSON.stringify(newIdea);
+  localStorage.setItem(newIdea.uniqueId, stringifiedIdea);
+}
+
+function getIdea() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var retrievedObject = localStorage.getItem(localStorage.key(i)) 
+    var parsedObject = JSON.parse(retrievedObject);
+    ideasArray.push(parsedObject);
+  createHTML(ideasArray[i].title,ideasArray[i].body, ideasArray[i].quality);
+  }
+} 
+
+function createHTML(title, body, quality) {
   $('.search-input').after(`<article class="idea-section">
-                              <h3>${newIdea.title}</h3>
+                              <h3>${title}</h3>
                               <button class='delete-button'></button>
-                              <p>${newIdea.body}</p>
+                              <p>${body}</p>
                               <button class="upvote-button"></button>
                               <button class="downvote-button"></button>
-                              <p class="quality">quality: swill</p>
+                              <p class="quality">quality: ${quality}</p>
                               <hr>
-                              </article>`);
-   clearInputs();
-   enableSubmit();
+                            </article>`);
 }
+
 
 function clearInputs() {
   $('.idea-title').val('');
@@ -62,5 +90,4 @@ function Idea (title, body) {
   this.uniqueId = Date.now();
 };
 
-// function newIdea = new Idea {}
 
