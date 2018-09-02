@@ -8,16 +8,12 @@ var ideasArray = new Array();
 
 $(document).ready(getIdea);
 
-
-
 function createIdea(e) {
   var title = $('.idea-title').val();
   var body = $('.idea-body').val();
   var newIdea = new Idea(title, body);
-
   e.preventDefault();
-
-  createHTML(newIdea.title, newIdea.body, newIdea.quality);
+  createHTML(newIdea.title, newIdea.body, newIdea.quality, newIdea.uniqueId);
   clearInputs();
   enableSubmit();
   storeIdea(newIdea);
@@ -30,17 +26,20 @@ function storeIdea(newIdea) {
 
 function getIdea() {
   for (var i = 0; i < localStorage.length; i++) {
-    var retrievedObject = localStorage.getItem(localStorage.key(i)) 
+    var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
     ideasArray.push(parsedObject);
-  createHTML(ideasArray[i].title,ideasArray[i].body, ideasArray[i].quality);
+    createHTML(ideasArray[i].title,ideasArray[i].body, 
+      ideasArray[i].quality, ideasArray[i].uniqueId);
   }
 } 
 
-function createHTML(title, body, quality) {
+
+
+function createHTML(title, body, quality, id) {
   $('.search-input').after(`<article class="idea-section">
                               <h3>${title}</h3>
-                              <button class='delete-button'></button>
+                              <button class='delete-button' id='${id}'></button>
                               <p>${body}</p>
                               <button class="upvote-button"></button>
                               <button class="downvote-button"></button>
@@ -68,8 +67,15 @@ function removeIdea(e) {
   if (e.target.className === 'delete-button') {
     $(e.target).parent().remove();
   }
-}
+  console.log(e.target.id)
+  var deleteId = e.target.id;
+    localStorage.removeItem(deleteId);
 
+  // for (var i = 0; i < localStorage.length; i++) {
+  //   var deletedObject = localStorage.removeItem(localStorage.;
+  //   console.log(deletedObject);
+ // }
+}
 // function upvoteIdea(e) {
 //   if (e.target.className === '.upvote-button') {
 //     $(e.target).parent().akl;sdfja;lskdjfal;skdfjadls;
@@ -88,6 +94,6 @@ function Idea (title, body) {
   this.quality = 'swill';
   this.qualityCount = 0;
   this.uniqueId = Date.now();
-};
+}
 
 
