@@ -2,6 +2,7 @@ $('.save-button').on('click', createIdea);
 $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
+$('.idea-card-section').on('click', upvoteIdea);
 
 var ideasArray = new Array();
 
@@ -75,11 +76,24 @@ function removeIdea(e) {
   var deleteId = e.target.id;
     localStorage.removeItem(deleteId);
 }
-// function upvoteIdea(e) {
-//   if (e.target.className === '.upvote-button') {
-//     $(e.target).parent().akl;sdfja;lskdjfal;skdfjadls;
-//   }
-// }
+function upvoteIdea(e) {
+  if (e.target.className === 'upvote-button') {
+
+    for (var i = 0; i < localStorage.length; i++) {
+
+      var retrievedObject = localStorage.getItem(localStorage.key(i));
+      var parsedObject = JSON.parse(retrievedObject);
+      if (event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML === 'quality: swill') {
+        event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML = 'quality: plausible';
+        return parsedObject.quality = "plausible";
+      } else {
+        event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML = 'quality: genius';
+        return parsedObject.quality = "genius";
+      }
+      storeIdea(parsedObject);
+    }
+  }
+}
 
 // function downvoteIdea(e) {
 //   if (e.target.className() === '.downvote-button') {
