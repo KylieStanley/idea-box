@@ -3,8 +3,7 @@ $('.idea-title').on('keyup', enableSubmit);
 $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
 $('.idea-card-section').on('click', upvoteIdea);
-
-var ideasArray = new Array();
+$('.idea-card-section').on('click', downvoteIdea);
 
 $(document).ready(getIdea);
 
@@ -36,9 +35,7 @@ function getIdea() {
   for (var i = 0; i < localStorage.length; i++) {
     var retrievedObject = localStorage.getItem(localStorage.key(i));
     var parsedObject = JSON.parse(retrievedObject);
-    ideasArray.push(parsedObject);
-    createHTML(ideasArray[i].title,ideasArray[i].body, 
-      ideasArray[i].quality, ideasArray[i].uniqueId);
+    createHTML(parsedObject.title, parsedObject.body, parsedObject.quality, parsedObject.uniqueId);
   }
 } 
 
@@ -47,8 +44,8 @@ function createHTML(title, body, quality, id) {
                               <h3>${title}</h3>
                               <button class='delete-button' id='${id}'></button>
                               <p>${body}</p>
-                              <button class="upvote-button"></button>
-                              <button class="downvote-button"></button>
+                              <button class="upvote-button" id='${id}'></button>
+                              <button class="downvote-button" id='${id}'></button>
                               <p class="quality">quality: ${quality}</p>
                               <hr>
                             </article>`);
@@ -71,35 +68,39 @@ function enableSubmit() {
 function removeIdea(e) {
   if (e.target.className === 'delete-button') {
     $(e.target).parent().remove();
-  }
-  console.log(e.target.id)
-  var deleteId = e.target.id;
+    var deleteId = e.target.id;
     localStorage.removeItem(deleteId);
+  }
 }
+
 function upvoteIdea(e) {
   if (e.target.className === 'upvote-button') {
-
-    for (var i = 0; i < localStorage.length; i++) {
-
-      var retrievedObject = localStorage.getItem(localStorage.key(i));
-      var parsedObject = JSON.parse(retrievedObject);
-      if (event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML === 'quality: swill') {
-        event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML = 'quality: plausible';
-        return parsedObject.quality = "plausible";
-      } else {
-        event.target.nextSibling.nextSibling.nextSibling.nextSibling.innerHTML = 'quality: genius';
-        return parsedObject.quality = "genius";
-      }
-      storeIdea(parsedObject);
+    var qualityText = e.target.nextSibling.nextSibling.nextSibling.nextSibling;
+    var upvoteId = e.target.id;
+    var parsedObject = JSON.parse(localStorage.getItem(upvoteId));   
+    if (qualityText.innerHTML === 'quality: swill') {
+      qualityText.innerHTML = 'quality: plausible';
+      parsedObject.quality = "plausible";
+    } else {
+      qualityText.innerHTML = 'quality: genius';
+      parsedObject.quality = "genius";
     }
+    storeIdea(parsedObject);
   }
 }
 
-// function downvoteIdea(e) {
-//   if (e.target.className() === '.downvote-button') {
-//     $(e.target).parent().akls;sdkf;alsfkja;lsdkfj
-//   }
-// }
-
-
-
+function downvoteIdea(e) {
+  if (e.target.className === 'downvote-button') {
+    var qualityText = e.target.nextSibling.nextSibling;
+    var downvoteId = e.target.id;
+    var parsedObject = JSON.parse(localStorage.getItem(downvoteId));   
+    if (qualityText.innerHTML === 'quality: genius') {
+      qualityText.innerHTML = 'quality: plausible';
+      parsedObject.quality = "plausible";
+    } else {
+      qualityText.innerHTML = 'quality: swill';
+      parsedObject.quality = "swill";
+    }
+    storeIdea(parsedObject);
+  }
+}
