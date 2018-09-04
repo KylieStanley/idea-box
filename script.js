@@ -20,35 +20,25 @@ function createIdea(e) {
   var title = $('.idea-title').val();
   var body = $('.idea-body').val();
   var newIdea = new Idea(title, body);
-  createHTML(newIdea.title, newIdea.body, newIdea.quality, newIdea.uniqueId);
+  createHTML(newIdea);
   clearInputs();
   enableSubmit();
   storeIdea(newIdea);
 }
 
-function storeIdea(newIdea) {
- var stringifiedIdea = JSON.stringify(newIdea);
-  localStorage.setItem(newIdea.uniqueId, stringifiedIdea);
-}
-
-function getIdea() {
-  for (var i = 0; i < localStorage.length; i++) {
-    var retrievedObject = localStorage.getItem(localStorage.key(i));
-    var parsedObject = JSON.parse(retrievedObject);
-    createHTML(parsedObject.title, parsedObject.body, parsedObject.quality, parsedObject.uniqueId);
-  }
-} 
-
-function createHTML(title, body, quality, id) {
+function createHTML(newIdea) {
   $('.search-input').after(`<article class="idea-section">
-                              <h3>${title}</h3>
-                              <button class='delete-button' id='${id}'></button>
-                              <p>${body}</p>
-                              <button class="upvote-button" id='${id}'></button>
-                              <button class="downvote-button" id='${id}'></button>
-                              <p class="quality">quality: ${quality}</p>
-                              <hr>
+                              <h3 class='edit edit-h3' contenteditable='true'>${newIdea.title}</h3>
+                              <button class='delete-button' id='${newIdea.uniqueId}'></button>
+                              <p class='edit edit-p' contenteditable='true'>${newIdea.body}</p>
+                              <button class="upvote-button" id='${newIdea.uniqueId}'></button>
+                              <button class="downvote-button" id='${newIdea.uniqueId}'></button>
+                              <p class="quality">quality: ${newIdea.quality}</p>
+                              <hr noshade>
                             </article>`);
+
+  $('.edit').on('keypress', editIdeasOnEnter);
+  $('.edit').on('focusout', editIdeasClickOut);
 }
 
 function clearInputs() {
@@ -64,6 +54,37 @@ function enableSubmit() {
     $('.save-button').prop('disabled', false);
   }
 }
+
+function storeIdea(newIdea) {
+ var stringifiedIdea = JSON.stringify(newIdea);
+  localStorage.setItem(newIdea.uniqueId, stringifiedIdea);
+}
+
+function getIdea() {
+  for (var i = 0; i < localStorage.length; i++) {
+    var parsedObject = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    createHTML(parsedObject);
+  }
+} 
+
+function editIdeasOnEnter(e) {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    var updateId = $(this).siblings('button').attr("id");
+    var parsedObject = JSON.parse(localStorage.getItem(updateId));
+    parsedObject.title = $('.edit-h3').html();
+    parsedObject.body = $('.edit-p').html();
+    storeIdea(parsedObject);
+    document.activeElement.blur();
+  }
+}
+
+function editIdeasClickOut(e) {
+    var updateId = $(this).siblings('button').attr("id");
+    var parsedObject = JSON.parse(localStorage.getItem(updateId));
+    parsedObject.title = $('.edit-h3').html();
+    parsedObject.body = $('.edit-p').html();
+    storeIdea(parsedObject);
+  }
 
 function removeIdea(e) {
   if (e.target.className === 'delete-button') {
