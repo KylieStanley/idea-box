@@ -3,16 +3,15 @@
 }
 
 /*TOP SECTION STYLING*/
-
 body {
  font-family: 'Open Sans', sans-serif;
  }
 
 .input-section {
   background-color: #E5F3F2;
-  height: 45vh;
   display: flex;
   flex-direction: column;
+  height: 40vh;
   justify-content: center;
 }
 
@@ -44,6 +43,16 @@ input {
   width: 55%;
 }
 
+textarea {
+  border: 2px solid #D1D3D4;
+  font-size: 1.3rem;
+  height: 42px;
+  margin: 10px;
+  padding: 6px;
+  resize: none;
+  width: 55%;
+}
+
 ::placeholder {
   color: #D1D3D4;
 }
@@ -54,7 +63,7 @@ input {
   color: white;
   font-family: inherit;
   font-size: 1.3rem;
-  margin: 5px 0;
+  margin: 15px 0 5px;
   padding: 6px;
   width: 55%;
 }
@@ -65,22 +74,24 @@ input {
 
 button:disabled {
   opacity: .4;
-  }
+}
 
 /*BOTTOM SECTION STYLING*/
 .idea-card-section {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 55vh;
-}
-.search-field {
-  margin: 22px 0;
+  height: 60vh;
 }
 
+.search-input {
+  margin: 40px 0 22px;
+}
+
+/*CARD STYLING*/
 article {
-  width: 55%;
   margin-top: 5px;
+  width: 55%;
 }
 
 h3 {
@@ -88,14 +99,19 @@ h3 {
   display: inline-block;
   font-family: 'Roboto Slab', serif;
   font-size: 1.3rem;
+  max-width: 90%;
+}
+
+/*VOTING AND DELETE BUTTONS*/
+.btn {
+  border: 0;
+  height: 1.3rem;
+  width: 1.3rem;
 }
 
 .delete-button {
   background: url(assets/delete.svg);
-  border: 0;
   float: right;
-  height: 1.3rem;
-  width: 1.3rem;
 }
 
 .delete-button:hover {
@@ -104,32 +120,31 @@ h3 {
 
 .upvote-button {
   background: url(assets/upvote.svg);
-  border: 0;
-  height: 1.3rem;
-  width: 1.3rem;
 }
 
 .upvote-button:hover {
   background: url(assets/upvote-hover.svg);
-
 }
 
 .downvote-button {
   background: url(assets/downvote.svg);
-  border: 0;
-  height: 1.3rem;
-  width: 1.3rem;
 }
 
 .downvote-button:hover {
   background: url(assets/downvote-hover.svg);
-
 }
 
-.quality-text {
+div {
+  display: flex;
+  justify-content: space-between;
+  width: 138px;
+}
+
+.quality {
   color: #6D6E71;
   display: inline-block;
-  font-size: .8rem;
+  font-size: .9rem;
+  margin: 0;
 }
 
 p {
@@ -143,25 +158,41 @@ hr {
 }
 
 @media screen and (max-width: 500px) {
-input {
-  width: 85%;
-}
-.save-button {
-  width: 85%;
-}
-.input-section {
-  height: 55vh;
-} 
-h1 {
-  font-size: 2.3rem;
-}
-.idea-body {
-  height: 80px;
-}
-}
+  input {
+    font-size: 1rem;
+    height: 30px;
+    width: 85%;
+  }
 
-@media screen and (min-height: 550px) {
-  form {
-    margin-bottom: 10px;
+  textarea {
+    font-size: 1.1rem;
+    padding: 4px;
+    width: 85%;
+  }
+
+  h1 {
+    font-size: 2.3rem;
+    padding-bottom: 18px;
+  }
+
+  article {
+    width: 82%;
+  }
+
+  .save-button {
+    font-size: 1.1rem;
+    width: 85%;
+  }
+
+  .input-section {
+    height: 55vh;
+  } 
+  
+  .idea-body {
+    height: 95px;
+  }
+
+  .search-input {
+    margin: 20px 0 30px;
   }
 }

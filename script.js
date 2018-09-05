@@ -29,11 +29,13 @@ function createIdea(e) {
 function createHTML(newIdea) {
   $('.search-input').after(`<article class="idea-section">
                               <h3 class='edit edit-h3' contenteditable='true'>${newIdea.title}</h3>
-                              <button class='delete-button' id='${newIdea.uniqueId}'></button>
+                              <button class='delete-button btn' id='${newIdea.uniqueId}'></button>
                               <p class='edit edit-p' contenteditable='true'>${newIdea.body}</p>
-                              <button class="upvote-button" id='${newIdea.uniqueId}'></button>
-                              <button class="downvote-button" id='${newIdea.uniqueId}'></button>
+                              <div>
+                              <button class="upvote-button btn" id='${newIdea.uniqueId}'></button>
+                              <button class="downvote-button btn" id='${newIdea.uniqueId}'></button>
                               <p class="quality">quality: ${newIdea.quality}</p>
+                              </div>
                               <hr noshade>
                             </article>`);
 
@@ -87,7 +89,7 @@ function editIdeasClickOut(e) {
   }
 
 function removeIdea(e) {
-  if (e.target.className === 'delete-button') {
+  if (e.target.className === 'delete-button btn') {
     $(e.target).parent().remove();
     var deleteId = e.target.id;
     localStorage.removeItem(deleteId);
@@ -95,7 +97,7 @@ function removeIdea(e) {
 }
 
 function upvoteIdea(e) {
-  if (e.target.className === 'upvote-button') {
+  if (e.target.className === 'upvote-button btn') {
     var qualityText = e.target.nextSibling.nextSibling.nextSibling.nextSibling;
     var upvoteId = e.target.id;
     var parsedObject = JSON.parse(localStorage.getItem(upvoteId));   
@@ -111,7 +113,7 @@ function upvoteIdea(e) {
 }
 
 function downvoteIdea(e) {
-  if (e.target.className === 'downvote-button') {
+  if (e.target.className === 'downvote-button btn') {
     var qualityText = e.target.nextSibling.nextSibling;
     var downvoteId = e.target.id;
     var parsedObject = JSON.parse(localStorage.getItem(downvoteId));   
