@@ -78,7 +78,9 @@ function searchIdea() {
     cardTitle.html().indexOf(searchText);
     if (cardTitle.html().indexOf(searchText) < 0) {
       value.style.display = "none";
-    } 
+    } else {
+      value.style.display = "";
+    }
   }); 
 }
 
