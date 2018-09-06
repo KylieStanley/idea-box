@@ -4,7 +4,7 @@ $('.idea-body').on('keyup', enableSubmit);
 $('.idea-card-section').on('click', removeIdea);
 $('.idea-card-section').on('click', upvoteIdea);
 $('.idea-card-section').on('click', downvoteIdea);
-$('.search-input').on('keyup', searchIdea)
+$('.search-input').on('keyup', searchIdea);
 
 $(document).ready(getIdea);
 
@@ -73,20 +73,14 @@ function getIdea() {
 function searchIdea() {
   $('article').each(function(index, value) {
     var cardTitle = $(value).children('.edit-h3');
-    cardTitle.html();
     var searchText = $('.search-input').val();
-    cardTitle.html().indexOf(searchText);
-    if (cardTitle.html().indexOf(searchText) < 0) {
+    if (cardTitle.html().toLowerCase().indexOf(searchText.toLowerCase()) < 0) {
       value.style.display = "none";
     } else {
       value.style.display = "";
     }
   }); 
 }
-
-
-
-
 
 function editIdeasOnEnter(e) {
   if (e.keyCode === 13 && !e.shiftKey) {
