@@ -45,9 +45,12 @@ input {
 
 textarea {
   border: 2px solid #D1D3D4;
+  font-family: inherit;
   font-size: 1.3rem;
+  font-weight: bold;
   height: 42px;
   margin: 10px;
+  overflow: hidden;
   padding: 6px;
   resize: none;
   width: 55%;
@@ -136,14 +139,15 @@ h3 {
 
 div {
   display: flex;
-  justify-content: space-between;
-  width: 138px;
+  /*justify-content: space-between;
+  width: 138px;*/
 }
 
 .quality {
   color: #6D6E71;
   display: inline-block;
   font-size: .9rem;
+  padding-left: 5px;
   margin: 0;
 }
 
